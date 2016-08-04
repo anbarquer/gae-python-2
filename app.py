@@ -53,8 +53,7 @@ class MainHandler(webapp2.RequestHandler):
                                                  identity=user.user_id(),
                                                  email=user.email())
             except:
-                app_user = AppUser(parent=get_app_user_root())
-                app_user.id = user.user_id()
+                app_user = AppUser(id=user.user_id(), parent=get_app_user_root())
                 app_user.identity = user.user_id()
                 app_user.email = user.email()
                 app_user.put()
