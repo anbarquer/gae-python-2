@@ -1,0 +1,53 @@
+{% extends "templates/base.html" %}
+{% block title %}Product list{% endblock %}
+{% block content %}
+<div class="row">
+    <div class="six columns">
+        <h4>User info</h4>
+        <p>Credits: {{user.credits}}</p>
+        <form action="/products" method="post">
+            <input type="hidden" name="action" value="create">
+            <input type="submit" class="button" value="Add product to list">
+        </form>
+    </div>
+    <div class="six columns">
+
+
+        <table class="u-full-width">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Cost</th>
+                <th>Buy</th>
+                <th>Delete</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for product in products %}
+            <tr>
+                <td>{{ product.key.id()}}</td>
+                <td>{{ product.name }}</td>
+                <td>{{ product.cost }}</td>
+                <td>
+
+                    <form action="/products" method="post">
+                        <input type="hidden" name="action" value="buy">
+                        <input type="hidden" name="id" value="{{product.key.id()}}">
+                        <input type="submit" class="button" value="Buy">
+                    </form>
+                </td>
+                <td>
+                    <form action="/products" method="post">
+                        <input type="hidden" name="action" value="delete">
+                        <input type="hidden" name="id" value="{{product.key.id()}}">
+                        <input type="submit" class="button" value="Delete">
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
